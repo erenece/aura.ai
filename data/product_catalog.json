@@ -1,0 +1,132 @@
+[
+  {
+    "type": "product",
+    "id": "PRD-001",
+    "name": "Güneş Kolyesi - Altın",
+    "category": "Kolye",
+    "material": "14 Ayar Altın",
+    "colors": ["altın", "sarı altın"],
+    "price": 850.0,
+    "description": "El yapımı güneş motifli 14 ayar altın kolye. 45cm ayarlanabilir zincir. Her siparişte özel hediye kutusunda teslim edilir.",
+    "tags": ["kolye", "güneş", "altın", "14 ayar", "el yapımı", "hediye", "özel gün", "düğün", "nişan"]
+  },
+  {
+    "type": "product",
+    "id": "PRD-002",
+    "name": "Güneş Kolyesi - Gümüş",
+    "category": "Kolye",
+    "material": "925 Ayar Gümüş",
+    "colors": ["gümüş", "silver", "beyaz"],
+    "price": 320.0,
+    "description": "El yapımı güneş motifli 925 ayar gümüş kolye. 45cm ayarlanabilir zincir. Altın versiyonuyla aynı kalıp, farklı metal.",
+    "tags": ["kolye", "güneş", "gümüş", "925 ayar", "el yapımı", "minimalist", "günlük"]
+  },
+  {
+    "type": "product",
+    "id": "PRD-003",
+    "name": "Zümrüt Taşlı Yüzük",
+    "category": "Yüzük",
+    "material": "14 Ayar Altın + Doğal Zümrüt",
+    "colors": ["yeşil", "altın"],
+    "price": 1200.0,
+    "description": "Sertifikalı doğal zümrüt taşlı 14 ayar altın yüzük. 8-22 numara arası sipariş verilir. Orta taş 5mm, yan taşlar 2mm.",
+    "tags": ["yüzük", "zümrüt", "taşlı", "altın", "nişan", "hediye", "özel", "lüks", "doğal taş"]
+  },
+  {
+    "type": "product",
+    "id": "PRD-004",
+    "name": "İnci Küpe",
+    "category": "Küpe",
+    "material": "925 Ayar Gümüş + Tatlısu İncisi",
+    "colors": ["beyaz", "krem", "gümüş"],
+    "price": 450.0,
+    "description": "Doğal tatlısu incisi ve 925 ayar gümüş saplı damlacık küpe. İnci çapı 6-7mm. Zarif ve klasik tasarım.",
+    "tags": ["küpe", "inci", "gümüş", "doğal", "klasik", "düğün", "mezuniyet", "damlacık"]
+  },
+  {
+    "type": "product",
+    "id": "PRD-005",
+    "name": "Gümüş Bilezik",
+    "category": "Bilezik",
+    "material": "925 Ayar Gümüş",
+    "colors": ["gümüş", "silver"],
+    "price": 380.0,
+    "description": "Örgü desenli 925 ayar gümüş bilezik. Bilek çevresi 16-20cm arası ayarlanabilir. Erkek ve kadın modeli mevcuttur.",
+    "tags": ["bilezik", "gümüş", "925 ayar", "örgü", "günlük", "unisex", "minimalist"]
+  },
+  {
+    "type": "product",
+    "id": "PRD-006",
+    "name": "Elmas Kolye",
+    "category": "Kolye",
+    "material": "18 Ayar Beyaz Altın + Pırlanta",
+    "colors": ["beyaz altın", "şeffaf"],
+    "price": 4500.0,
+    "description": "0.15 karat sertifikalı pırlanta taşlı 18 ayar beyaz altın kolye. GIA sertifikalı taş. 42cm zincir.",
+    "tags": ["kolye", "elmas", "pırlanta", "beyaz altın", "18 ayar", "lüks", "nişan", "evlilik", "sertifikalı"]
+  },
+  {
+    "type": "product",
+    "id": "PRD-007",
+    "name": "Ay Kolye - Rose Gold",
+    "category": "Kolye",
+    "material": "14 Ayar Rose Gold",
+    "colors": ["rose gold", "pembe altın", "pembe"],
+    "price": 720.0,
+    "description": "Ay ve yıldız motifli 14 ayar rose gold kolye. Romantik ve minimalist tasarım. Sevgililer Günü'nün en çok tercih edilen hediyesi.",
+    "tags": ["kolye", "ay", "yıldız", "rose gold", "pembe altın", "minimalist", "romantik", "sevgililer günü", "hediye"]
+  },
+  {
+    "type": "product",
+    "id": "PRD-008",
+    "name": "Taşlı Bileklik",
+    "category": "Bileklik",
+    "material": "925 Ayar Gümüş + Ametist",
+    "colors": ["mor", "gümüş"],
+    "price": 280.0,
+    "description": "Doğal ametist taşlı zarif gümüş bileklik. Her boncuk el ile yerleştirilir. Bilek 14-19cm arası.",
+    "tags": ["bileklik", "ametist", "taşlı", "gümüş", "el yapımı", "doğal taş", "mor", "boho", "hediye"]
+  },
+  {
+    "type": "faq",
+    "id": "FAQ-001",
+    "name": "Kargo ve Teslimat",
+    "description": "Siparişler 1-3 iş günü içinde kargoya verilir. Yurtiçi Kargo ile gönderim yapılır. 500 TL ve üzeri siparişlerde kargo ücretsizdir. Kargo takip numarası siparişiniz kargoya verildiğinde SMS ve WhatsApp ile iletilir.",
+    "tags": ["kargo", "teslimat", "süre", "takip", "ücretsiz kargo", "ne zaman gelir", "kaç günde"]
+  },
+  {
+    "type": "faq",
+    "id": "FAQ-002",
+    "name": "İade ve Değişim Politikası",
+    "description": "Teslim tarihinden itibaren 14 gün içinde iade ve değişim yapılabilir. Ürün kullanılmamış ve orijinal ambalajında olmalıdır. Kişiye özel kazımalı ürünlerde iade kabul edilmez. İade kargo ücreti müşteriye aittir.",
+    "tags": ["iade", "değişim", "politika", "geri iade", "iptal", "14 gün", "koşullar"]
+  },
+  {
+    "type": "faq",
+    "id": "FAQ-003",
+    "name": "Ödeme Seçenekleri",
+    "description": "Kredi kartı (taksit imkânı mevcut), banka havalesi/EFT ve kapıda ödeme kabul edilir. Havale/EFT ödemelerinde %5 indirim uygulanır. 3D Secure ile güvenli online ödeme.",
+    "tags": ["ödeme", "kredi kartı", "taksit", "havale", "eft", "kapıda ödeme", "güvenli"]
+  },
+  {
+    "type": "faq",
+    "id": "FAQ-004",
+    "name": "Özel Sipariş ve Kişiselleştirme",
+    "description": "Ürünlere isim, tarih veya kısa mesaj kazıması yapılabilir. Özel sipariş için standart üretim süresine 3-7 iş günü ek süre gerekir. Boyut/renk özelleştirme için WhatsApp üzerinden iletişime geçin.",
+    "tags": ["özel sipariş", "kazıma", "kişiselleştirme", "hediye", "isim", "tarih", "mesaj", "gravür"]
+  },
+  {
+    "type": "faq",
+    "id": "FAQ-005",
+    "name": "Ürün Garantisi ve Kalite",
+    "description": "Tüm ürünlerimiz 1 yıl garantilidir. Üretim hatalarında ücretsiz tamir veya değişim yapılır. 14 ve 18 ayar altın ürünlerde ayar belgesi verilir. 925 ayar gümüş damgası mevcuttur.",
+    "tags": ["garanti", "kalite", "ayar belgesi", "tamir", "güvence", "1 yıl", "925 damga"]
+  },
+  {
+    "type": "faq",
+    "id": "FAQ-006",
+    "name": "Yüzük Numara Kılavuzu",
+    "description": "Yüzük numaranızı bilmiyorsanız: bir sicim ile parmağınızı sarın, sicimi düz açıp santim ile ölçün. Bu çevre değerini 3.14'e bölün. Örnek: 5.8cm / 3.14 = 18.5 numara. Ayrıca mağazamızda ücretsiz numara ölçümü yapılabilir.",
+    "tags": ["yüzük", "numara", "ölçüm", "beden", "boyut", "kaç numara"]
+  }
+]

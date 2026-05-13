@@ -1,0 +1,38 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.venv/
+venv/
+env/
+
+# Veritabanı
+*.db
+*.sqlite
+*.sqlite3
+
+# Ortam değişkenleri — ASLA commit etme
+.env
+
+# IDE & Tools
+.vscode/
+.idea/
+*.swp
+.claude/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Binary araçlar
+*.exe
+ngrok*
+
+# Logs
+*.log
+logs/
+
+# Build
+dist/
+build/
+*.egg-info/

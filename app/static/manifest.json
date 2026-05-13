@@ -1,0 +1,27 @@
+{
+  "name": "Aura.AI — Otonom Takı Mağazası Asistanı",
+  "short_name": "Aura.AI",
+  "description": "Butik takı mağazaları için WhatsApp entegrasyonlu otonom yapay zeka asistanı",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0f172a",
+  "theme_color": "#0ea5e9",
+  "orientation": "portrait-primary",
+  "lang": "tr",
+  "icons": [
+    {
+      "src": "/static/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/static/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [],
+  "categories": ["business", "productivity"]
+}

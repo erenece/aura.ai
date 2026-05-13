@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aura.AI — Canlı Demo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+<style>
+  :root {
+    --primary: #a855f7;
+    --primary-dark: #7c3aed;
+    --gold: #d4a853;
+    --bg: #0d0818;
+    --card: #130d24;
+    --border: rgba(168,85,247,0.18);
+    --text: #ede9fe;
+    --text-muted: #7c6fa0;
+    --green: #25d366;
+    --green-dark: #1da851;
+    --radius: 14px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    background-image:
+      radial-gradient(ellipse 60% 40% at 20% 10%, rgba(168,85,247,0.12) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 35% at 80% 90%, rgba(212,168,83,0.07) 0%, transparent 50%);
+  }
+
+  /* ── Header ── */
+  .header {
+    text-align: center;
+    padding: 32px 20px 20px;
+    border-bottom: 1px solid var(--border);
+    background: rgba(13,8,24,0.8);
+    backdrop-filter: blur(12px);
+    position: sticky; top: 0; z-index: 10;
+  }
+  .header-logo {
+    display: flex; align-items: center; justify-content: center; gap: 12px;
+    margin-bottom: 6px;
+  }
+  .logo-gem {
+    width: 36px; height: 36px;
+  }
+  .logo-text {
+    font-family: 'Cinzel', serif;
+    font-size: 22px; font-weight: 700;
+    background: linear-gradient(135deg, #d4a853 0%, #a855f7 60%, #7c3aed 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .header-sub {
+    font-size: 13px; color: var(--text-muted);
+    display: flex; align-items: center; justify-content: center; gap: 6px;
+  }
+  .badge-live {
+    background: rgba(37,211,102,0.15); color: #25d366;
+    border: 1px solid rgba(37,211,102,0.3);
+    padding: 2px 10px; border-radius: 20px; font-size: 11px; font-weight: 600;
+    display: flex; align-items: center; gap: 4px;
+  }
+  .badge-live::before {
+    content: ''; display: inline-block;
+    width: 6px; height: 6px; background: #25d366;
+    border-radius: 50%; animation: pulse 1.5s infinite;
+  }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.3} }
+
+  /* ── Layout ── */
+  .demo-layout {
+    display: grid;
+    grid-template-columns: 1fr 60px 1fr;
+    gap: 0;
+    max-width: 1100px;
+    margin: 24px auto;
+    padding: 0 16px;
+    align-items: start;
+  }
+
+  /* ── Panels ── */
+  .panel {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+  .panel-header {
+    padding: 14px 18px;
+    display: flex; align-items: center; gap: 10px;
+    border-bottom: 1px solid var(--border);
+  }
+  .panel-icon {
+    width: 36px; height: 36px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+  }
+  .panel-icon.whatsapp { background: rgba(37,211,102,0.15); color: var(--green); }
+  .panel-icon.agent    { background: rgba(168,85,247,0.15); color: var(--primary); }
+  .panel-title { font-size: 13px; font-weight: 700; }
+  .panel-sub   { font-size: 11px; color: var(--text-muted); margin-top: 1px; }
+
+  /* ── WhatsApp panel ── */
+  .wa-body {
+    background: #0a1628;
+    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h60v60H0z' fill='none'/%3E%3Ccircle cx='30' cy='30' r='1' fill='rgba(255,255,255,0.03)'/%3E%3C/svg%3E");
+    min-height: 380px; max-height: 380px; overflow-y: auto;
+    padding: 14px;
+    display: flex; flex-direction: column; gap: 10px;
+  }
+  .wa-body::-webkit-scrollbar { width: 4px; }
+  .wa-body::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 4px; }
+
+  .bubble {
+    max-width: 78%; padding: 9px 13px; border-radius: 12px;
+    font-size: 13.5px; line-height: 1.5; position: relative;
+    animation: fadeIn 0.25s ease;
+  }
+  @keyframes fadeIn { from{opacity:0;transform:translateY(6px)} to{opacity:1;transform:none} }
+
+  .bubble.customer {
+    background: #005c4b; color: #e9fbe5;
+    align-self: flex-end; border-bottom-right-radius: 4px;
+  }
+  .bubble.agent {
+    background: #1f2c34; color: #e9edef;
+    align-self: flex-start; border-bottom-left-radius: 4px;
+    border-left: 2px solid rgba(168,85,247,0.5);
+  }
+  .bubble-time {
+    font-size: 10px; opacity: 0.55; text-align: right; margin-top: 4px;
+  }
+
+  .wa-input-row {
+    padding: 10px 12px;
+    border-top: 1px solid var(--border);
+    display: flex; gap: 8px; align-items: center;
+    background: rgba(13,8,24,0.6);
+  }
+  .wa-input {
+    flex: 1; background: rgba(255,255,255,0.06);
+    border: 1px solid var(--border); border-radius: 24px;
+    padding: 9px 14px; font-size: 13px; color: var(--text);
+    font-family: inherit; outline: none;
+    transition: border-color 0.15s;
+  }
+  .wa-input:focus { border-color: var(--primary); }
+  .wa-input::placeholder { color: var(--text-muted); }
+  .wa-send {
+    width: 38px; height: 38px; border-radius: 50%;
+    background: var(--green); border: none; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    color: white; flex-shrink: 0;
+    transition: background 0.15s, transform 0.1s;
+  }
+  .wa-send:hover { background: var(--green-dark); transform: scale(1.05); }
+  .wa-send:active { transform: scale(0.95); }
+  .wa-send .material-icons-round { font-size: 18px; }
+
+  /* ── Arrow connector ── */
+  .connector {
+    display: flex; flex-direction: column; align-items: center;
+    justify-content: flex-start; padding-top: 80px; gap: 4px;
+  }
+  .arrow-line {
+    width: 2px; height: 30px; background: linear-gradient(to bottom, rgba(168,85,247,0.2), rgba(168,85,247,0.6));
+  }
+  .arrow-icon {
+    color: var(--primary); font-size: 18px;
+    animation: bounce 1.5s infinite;
+  }
+  @keyframes bounce { 0%,100%{transform:translateX(0)} 50%{transform:translateX(3px)} }
+  .arrow-label {
+    font-size: 9px; color: var(--text-muted); writing-mode: vertical-rl;
+    text-orientation: mixed; letter-spacing: 1px; text-transform: uppercase;
+    margin-top: 6px;
+  }
+
+  /* ── Agent trace panel ── */
+  .trace-body {
+    min-height: 380px; max-height: 380px; overflow-y: auto;
+    padding: 14px;
+    display: flex; flex-direction: column; gap: 8px;
+  }
+  .trace-body::-webkit-scrollbar { width: 4px; }
+  .trace-body::-webkit-scrollbar-thumb { background: rgba(168,85,247,0.2); border-radius: 4px; }
+
+  .trace-empty {
+    flex: 1; display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 10px; color: var(--text-muted); font-size: 13px; text-align: center;
+    padding: 30px;
+  }
+  .trace-empty .material-icons-round { font-size: 40px; opacity: 0.3; }
+
+  .trace-step {
+    background: rgba(168,85,247,0.06);
+    border: 1px solid rgba(168,85,247,0.12);
+    border-radius: 10px; padding: 10px 12px;
+    animation: fadeIn 0.2s ease;
+  }
+  .trace-step-header {
+    display: flex; align-items: center; gap: 8px;
+    margin-bottom: 6px;
+  }
+  .step-num {
+    width: 20px; height: 20px; border-radius: 50%;
+    background: var(--primary); color: white;
+    font-size: 10px; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .step-label { font-size: 12px; font-weight: 600; color: var(--primary); }
+  .step-detail { font-size: 11.5px; color: var(--text-muted); font-family: 'Courier New', monospace; }
+
+  .tool-chip {
+    display: inline-flex; align-items: center; gap: 4px;
+    background: rgba(212,168,83,0.1); color: var(--gold);
+    border: 1px solid rgba(212,168,83,0.25);
+    padding: 2px 8px; border-radius: 20px;
+    font-size: 11px; font-weight: 600; margin: 2px 2px 0 0;
+  }
+  .tool-chip .material-icons-round { font-size: 12px; }
+
+  .reply-box {
+    background: rgba(168,85,247,0.08);
+    border: 1px solid rgba(168,85,247,0.2);
+    border-radius: 10px; padding: 10px 12px;
+    font-size: 12.5px; line-height: 1.6; color: var(--text);
+    animation: fadeIn 0.25s ease;
+  }
+  .reply-box-label {
+    font-size: 10px; text-transform: uppercase; letter-spacing: 1px;
+    color: var(--primary); font-weight: 700; margin-bottom: 6px;
+    display: flex; align-items: center; gap: 6px;
+  }
+
+  /* ── Scenarios ── */
+  .scenarios {
+    max-width: 1100px; margin: 0 auto 24px; padding: 0 16px;
+  }
+  .scenarios-title {
+    font-size: 12px; text-transform: uppercase; letter-spacing: 1px;
+    color: var(--text-muted); margin-bottom: 10px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .scenario-btns {
+    display: flex; flex-wrap: wrap; gap: 8px;
+  }
+  .scenario-btn {
+    background: rgba(168,85,247,0.08);
+    border: 1px solid rgba(168,85,247,0.2);
+    color: var(--text); padding: 8px 14px;
+    border-radius: 24px; font-size: 12.5px; font-family: inherit;
+    cursor: pointer; transition: all 0.15s;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .scenario-btn:hover {
+    background: rgba(168,85,247,0.18);
+    border-color: var(--primary); color: #e9d5ff;
+    transform: translateY(-1px);
+  }
+  .scenario-btn .material-icons-round { font-size: 15px; color: var(--gold); }
+
+  /* ── Typing indicator ── */
+  .typing-dots {
+    display: flex; gap: 4px; align-items: center; padding: 2px 0;
+  }
+  .typing-dots span {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: rgba(168,85,247,0.6);
+    animation: typingDot 1.2s infinite;
+  }
+  .typing-dots span:nth-child(2) { animation-delay: 0.2s; }
+  .typing-dots span:nth-child(3) { animation-delay: 0.4s; }
+  @keyframes typingDot { 0%,60%,100%{transform:scale(1)} 30%{transform:scale(1.4)} }
+
+  /* ── Footer ── */
+  .footer {
+    text-align: center; padding: 16px;
+    font-size: 11.5px; color: var(--text-muted);
+    border-top: 1px solid var(--border);
+  }
+  .footer a { color: var(--primary); text-decoration: none; }
+
+  .actor-label {
+    display: inline-flex; align-items: center; gap: 5px;
+    font-size: 10px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 1px; padding: 2px 8px; border-radius: 20px;
+    margin-left: auto;
+  }
+  .actor-label.customer { background: rgba(37,211,102,0.1); color: var(--green); border: 1px solid rgba(37,211,102,0.2); }
+  .actor-label.ai       { background: rgba(168,85,247,0.1); color: var(--primary); border: 1px solid rgba(168,85,247,0.2); }
+
+  @media (max-width: 700px) {
+    .demo-layout { grid-template-columns: 1fr; }
+    .connector { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<div class="header">
+  <div class="header-logo">
+    <svg class="logo-gem" viewBox="0 0 24 24" fill="none">
+      <path d="M12 2L8 7H4L6 13L12 22L18 13L20 7H16L12 2Z" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,0.4)" stroke-width="0.8"/>
+      <path d="M12 2L16 7H8L12 2Z" fill="rgba(212,168,83,0.85)"/>
+      <path d="M8 7H16L18 13H6L8 7Z" fill="rgba(255,255,255,0.65)"/>
+      <path d="M6 13L12 22L18 13H6Z" fill="rgba(168,85,247,0.9)"/>
+    </svg>
+    <div class="logo-text">Aura.AI</div>
+  </div>
+  <div class="header-sub">
+    Otonom Takı Mağazası Asistanı &nbsp;·&nbsp;
+    <span class="badge-live">Canlı Demo</span>
+    &nbsp;·&nbsp; YZTA 5.0 Hackathon
+  </div>
+</div>
+
+<!-- Scenario Buttons -->
+<div class="scenarios">
+  <div class="scenarios-title">
+    <span class="material-icons-round" style="font-size:15px;">bolt</span>
+    Hazır Demo Senaryoları
+  </div>
+  <div class="scenario-btns" id="scenario-btns">
+    <!-- JS ile doldurulur -->
+  </div>
+</div>
+
+<!-- Two-panel Demo Layout -->
+<div class="demo-layout">
+
+  <!-- LEFT: Müşteri (WhatsApp) -->
+  <div class="panel">
+    <div class="panel-header">
+      <div class="panel-icon whatsapp">
+        <span class="material-icons-round">smartphone</span>
+      </div>
+      <div>
+        <div class="panel-title">Müşteri — WhatsApp</div>
+        <div class="panel-sub">Mesaj gönder, cevabı bekle</div>
+      </div>
+      <span class="actor-label customer">Aktör 1</span>
+    </div>
+
+    <div class="wa-body" id="wa-messages">
+      <div class="bubble agent">
+        Merhaba! Ben Aura.AI 💎 Siparişinizi, kargonuzu veya ürünlerimizi sormak için buradayım.
+        <div class="bubble-time">Aura.AI</div>
+      </div>
+    </div>
+
+    <div class="wa-input-row">
+      <input class="wa-input" id="msg-input" type="text"
+             placeholder="Bir mesaj yazın..." autocomplete="off"
+             onkeydown="if(event.key==='Enter')sendMessage()">
+      <button class="wa-send" onclick="sendMessage()" title="Gönder">
+        <span class="material-icons-round">send</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- CENTER: Arrow -->
+  <div class="connector">
+    <div class="arrow-line"></div>
+    <span class="material-icons-round arrow-icon">east</span>
+    <div class="arrow-line" style="background:linear-gradient(to bottom,rgba(168,85,247,0.6),rgba(168,85,247,0.2))"></div>
+    <span class="arrow-label">Gemini API</span>
+  </div>
+
+  <!-- RIGHT: Ajan Trace -->
+  <div class="panel">
+    <div class="panel-header">
+      <div class="panel-icon agent">
+        <span class="material-icons-round">psychology</span>
+      </div>
+      <div>
+        <div class="panel-title">Aura.AI — Ajan Logu</div>
+        <div class="panel-sub">Gemini 2.5 Flash · Function Calling · RAG</div>
+      </div>
+      <span class="actor-label ai">Aktör 2</span>
+    </div>
+
+    <div class="trace-body" id="trace-body">
+      <div class="trace-empty" id="trace-empty">
+        <span class="material-icons-round">auto_awesome</span>
+        <div>Müşteri bir mesaj gönderdiğinde<br>ajan adımları burada görünecek</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Footer -->
+<div class="footer">
+  Jüri testi için:
+  <a href="/docs#/Demo" target="_blank">Swagger UI → Demo bölümü</a>
+  &nbsp;·&nbsp;
+  <a href="/" target="_blank">Admin Paneli</a>
+  &nbsp;·&nbsp;
+  Aura.AI · YZTA 5.0 Hackathon
+</div>
+
+<script>
+const SCENARIOS = [
+  { icon: 'local_shipping', label: 'Kargo Sorgula',   msg: '128 numaralı siparişim ne zaman gelir?' },
+  { icon: 'inventory_2',    label: 'Stok Sorgula',    msg: 'Güneş kolyenin gümüş rengi stokta var mı, fiyatı ne kadar?' },
+  { icon: 'help_outline',   label: 'İade Politikası', msg: 'İade politikanız nedir? Kaç günde iade kabul ediyorsunuz?' },
+  { icon: 'shopping_bag',   label: 'Sipariş Ver',     msg: 'Zümrüt taşlı yüzükten bir adet almak istiyorum, adım Ayşe Yılmaz' },
+];
+
+// Senaryo butonlarını oluştur
+const btnContainer = document.getElementById('scenario-btns');
+SCENARIOS.forEach(s => {
+  const btn = document.createElement('button');
+  btn.className = 'scenario-btn';
+  btn.innerHTML = `<span class="material-icons-round">${s.icon}</span>${s.label}`;
+  btn.onclick = () => {
+    document.getElementById('msg-input').value = s.msg;
+    sendMessage();
+  };
+  btnContainer.appendChild(btn);
+});
+
+function now() {
+  return new Date().toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' });
+}
+
+function addBubble(text, type) {
+  const container = document.getElementById('wa-messages');
+  const div = document.createElement('div');
+  div.className = `bubble ${type}`;
+  div.innerHTML = text.replace(/\n/g, '<br>') +
+    `<div class="bubble-time">${type === 'customer' ? 'Siz' : 'Aura.AI'} · ${now()}</div>`;
+  container.appendChild(div);
+  container.scrollTop = container.scrollHeight;
+  return div;
+}
+
+function addTypingIndicator() {
+  const container = document.getElementById('wa-messages');
+  const div = document.createElement('div');
+  div.className = 'bubble agent';
+  div.id = 'typing-bubble';
+  div.innerHTML = `<div class="typing-dots"><span></span><span></span><span></span></div>`;
+  container.appendChild(div);
+  container.scrollTop = container.scrollHeight;
+}
+
+function removeTypingIndicator() {
+  const el = document.getElementById('typing-bubble');
+  if (el) el.remove();
+}
+
+const TOOL_ICONS = {
+  get_order_status:       { icon: 'receipt_long',    label: 'Sipariş sorgulandı' },
+  get_cargo_status:       { icon: 'local_shipping',  label: 'Kargo durumu alındı' },
+  get_inventory_status:   { icon: 'inventory_2',     label: 'Stok kontrol edildi' },
+  search_knowledge_base:  { icon: 'auto_stories',    label: 'Katalog arandı (RAG)' },
+  create_order:           { icon: 'add_shopping_cart',label: 'Sipariş oluşturuldu' },
+  list_pending_orders:    { icon: 'pending_actions',  label: 'Bekleyen siparişler listelendi' },
+  get_analytics_summary:  { icon: 'analytics',        label: 'Analitik özeti alındı' },
+  update_order_status:    { icon: 'edit_note',         label: 'Sipariş güncellendi' },
+  update_inventory_stock: { icon: 'tune',              label: 'Stok güncellendi' },
+};
+
+let stepCounter = 0;
+
+function clearTrace() {
+  stepCounter = 0;
+  document.getElementById('trace-body').innerHTML = '<div class="trace-empty" id="trace-empty"><span class="material-icons-round">auto_awesome</span><div>Müşteri bir mesaj gönderdiğinde<br>ajan adımları burada görünecek</div></div>';
+}
+
+function addTraceStep(num, title, detail) {
+  const empty = document.getElementById('trace-empty');
+  if (empty) empty.remove();
+
+  const body = document.getElementById('trace-body');
+  const div = document.createElement('div');
+  div.className = 'trace-step';
+  div.innerHTML = `
+    <div class="trace-step-header">
+      <div class="step-num">${num}</div>
+      <div class="step-label">${title}</div>
+    </div>
+    <div class="step-detail">${detail}</div>
+  `;
+  body.appendChild(div);
+  body.scrollTop = body.scrollHeight;
+}
+
+function addToolChips(tools) {
+  if (!tools || tools.length === 0) return;
+  const body = document.getElementById('trace-body');
+  const div = document.createElement('div');
+  div.className = 'trace-step';
+  div.innerHTML = `
+    <div class="trace-step-header">
+      <div class="step-num">🔧</div>
+      <div class="step-label">Araç Çağrıları (DB / Servis)</div>
+    </div>
+    <div style="margin-top:4px;">
+      ${tools.map(t => {
+        const meta = TOOL_ICONS[t] || { icon: 'extension', label: t };
+        return `<span class="tool-chip"><span class="material-icons-round">${meta.icon}</span>${meta.label}</span>`;
+      }).join('')}
+    </div>
+  `;
+  body.appendChild(div);
+  body.scrollTop = body.scrollHeight;
+}
+
+function addReplyTrace(reply) {
+  const body = document.getElementById('trace-body');
+  const div = document.createElement('div');
+  div.className = 'reply-box';
+  div.innerHTML = `
+    <div class="reply-box-label">
+      <span class="material-icons-round" style="font-size:14px;">check_circle</span>
+      Üretilen Yanıt (Doğal Dil)
+    </div>
+    ${reply.replace(/\n/g, '<br>')}
+  `;
+  body.appendChild(div);
+  body.scrollTop = body.scrollHeight;
+}
+
+let isSending = false;
+
+async function sendMessage() {
+  if (isSending) return;
+  const input = document.getElementById('msg-input');
+  const msg = input.value.trim();
+  if (!msg) return;
+
+  isSending = true;
+  input.value = '';
+  stepCounter = 0;
+
+  // Müşteri mesajı
+  addBubble(msg, 'customer');
+
+  // Trace sıfırla ve mesaj alındı adımını ekle
+  clearTrace();
+  addTraceStep(1, 'Müşteri Mesajı Alındı', `"${msg.length > 80 ? msg.slice(0, 80) + '…' : msg}"`);
+
+  // Yazıyor göstergesi
+  addTypingIndicator();
+  addTraceStep(2, 'Niyet Analizi', 'Gemini 2.5 Flash mesajı işliyor…');
+
+  try {
+    const res = await fetch('/api/demo/message', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ phone: '+905321234567', message: msg }),
+    });
+
+    removeTypingIndicator();
+
+    if (!res.ok) {
+      let errMsg = 'Bir hata oluştu, lütfen tekrar deneyin.';
+      try {
+        const errData = await res.json();
+        if (res.status === 429) {
+          errMsg = '⏳ Gemini API dakika kotası doldu. Lütfen 1-2 dakika bekleyip tekrar deneyin.';
+        } else if (errData.detail) {
+          errMsg = errData.detail;
+        }
+      } catch {}
+      addBubble(errMsg, 'agent');
+      addTraceStep('!', res.status === 429 ? 'Kota Limiti' : 'Hata', `HTTP ${res.status}`);
+      return;
+    }
+
+    const data = await res.json();
+
+    // Araç çağrıları
+    if (data.tools_used && data.tools_used.length > 0) {
+      addTraceStep(3, 'Veritabanı / Servis Sorguları', `${data.tools_used.length} araç çağrısı yapıldı`);
+      addToolChips(data.tools_used);
+      addTraceStep(4, 'Yanıt Üretildi', 'Veriler doğal dile dönüştürüldü');
+    } else {
+      addTraceStep(3, 'Doğrudan Yanıt', 'DB sorgusu gerekmedi (bilgi mevcut)');
+    }
+
+    addReplyTrace(data.agent_reply);
+
+    // WhatsApp'ta göster
+    addBubble(data.agent_reply, 'agent');
+
+  } catch (e) {
+    removeTypingIndicator();
+    addBubble('Sunucuya bağlanılamadı.', 'agent');
+    addTraceStep('!', 'Bağlantı Hatası', e.message);
+  } finally {
+    isSending = false;
+    input.focus();
+  }
+}
+</script>
+</body>
+</html>
