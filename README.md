@@ -1,3 +1,8 @@
+
+
+https://github.com/user-attachments/assets/347995d6-4134-4240-99e6-129667732718
+
+
 # Aura.AI — Otonom Takı Mağazası Asistanı
 
 > **YZTA 5.0 Hackathon** — "Otonom Yapay Zeka Ajanları" kategorisi
