@@ -181,6 +181,14 @@ uvicorn app.main:app --reload
 
 > Eğer `aura.db` mevcutsa ve eski veri varsa silin — uygulama başlarken takı mağazası demo verisi otomatik yüklenir.
 
+Sunucu ayağa kalktıktan sonra erişim linkleri:
+
+| Sayfa | URL |
+|-------|-----|
+| **Admin Paneli** | `http://localhost:8000` |
+| **WhatsApp Demo** | `http://localhost:8000/demo` |
+| **API Dokümantasyonu** | `http://localhost:8000/docs` |
+
 ```bash
 del aura.db   # Windows
 rm aura.db    # Linux/Mac
